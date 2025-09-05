@@ -1,0 +1,155 @@
+/* --- Palette / variables (from A HTML) --- */
+:root{
+  --near-white:#EDEEF7; --white:#FFFFFF;
+  --bright-cyan:#39CFD1; --bright-cyan-2:#1DA4A6;
+  --error-red:#ff6b6b; --success-green:#4ade80;
+  --light-purple:#A48DCD; --light-purple-30: rgba(164,141,205,.3);
+}
+
+/* --- Base --- */
+html, body { height: 100%; }
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  color: #FFFFFF;
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 16px;
+
+  /* A HTML 的柔和橘→灰綠→藍綠漸層 */
+  background: linear-gradient(100deg, #F07A3A 0%, #B7B49E 52%, #39CFD1 100%);
+}
+
+/* --- Background canvas (glow dots + lines) --- */
+#bgCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;               /* 背景層 */
+  pointer-events: none;
+  opacity: .9;
+}
+
+/* --- Foreground layout must stay above canvas --- */
+.main-page-header,
+.slideshow-master-container {
+  position: relative;
+  z-index: 10;              /* 前景層 */
+}
+
+/* --- Header --- */
+.main-page-header {
+  padding: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.main-page-title {
+  font-size: 2.25rem;
+  line-height: 2.75rem;
+  font-weight: 700;
+  text-shadow: 0 4px 8px rgba(0,0,0,.25);
+  margin: 0;
+}
+
+/* --- Slideshow container & slides --- */
+.slideshow-master-container {
+  width: 100%;
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+  padding: 5px 15px 15px;
+  box-sizing: border-box;
+}
+.column-group-slide {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: none; opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  box-sizing: border-box;
+}
+.column-group-slide.active {
+  display: block; opacity: 1; z-index: 5;
+}
+
+/* --- Grid inside each slide --- */
+.page-container-in-slide {
+   display: grid;
+   grid-template-columns: repeat(10, minmax(0, 1fr));
+   gap: 12px;
+   width: 100%;
+   height: 100%;
+   overflow-x: hidden;
+}
+
+/* --- Column/card styles (微調使其更貼合新背景) --- */
+.column {
+  min-width: 0;
+  background: linear-gradient(135deg, rgba(38,55,62,.82) 0%, rgba(53,97,98,.82) 100%);
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,.22);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.column-title {
+  background: linear-gradient(90deg, rgba(240,122,58,.85) 0%, rgba(57,207,209,.85) 100%);
+  color: #FFF;
+  font-weight: 700;
+  text-align: center;
+  padding: .85rem 1rem;
+  border-bottom: 2px solid rgba(255,255,255,.35);
+  position: relative;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  text-shadow: 0 1px 6px rgba(0,0,0,.2);
+}
+.column-title::after {
+  content: '';
+  position: absolute; top:0; left:0; width:100%; height:1px;
+  background-color: rgba(255,255,255,.35);
+}
+.column-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.column-content::-webkit-scrollbar { display: none; }
+
+/* Table inside column */
+.column-content table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+}
+.column-content th {
+  background: linear-gradient(135deg, #1f3147, #2a5562);
+  position: sticky; top:0; z-index:10;
+  border-bottom: 2px solid rgba(255,255,255,.35);
+  font-weight:600; text-align:center;
+  padding:.8rem; font-size:1.1rem; color:#FFF;
+  white-space: nowrap;
+}
+.column-content td {
+  padding:.8rem; vertical-align:middle;
+  text-align:center; text-shadow:0 1px 2px rgba(0,0,0,0.35);
+  color: var(--near-white); font-size:1.05rem;
+}
+.column-content tr:nth-child(odd)  { background-color: rgba(31,49,54,0.55); }
+.column-content tr:nth-child(even) { background-color: rgba(41,83,84,0.55); }
+.column-content tr:hover { background-color: rgba(60,116,118,0.55); }
+
+/* Status colors & messages */
+.text-successGreen { color: var(--success-green); font-weight:600; }
+.error-message, .no-data, .static-message-content {
+  text-align:center; color: var(--near-white);
+  margin-top:25px; padding:20px;
+  font-style:italic; font-size:1.02rem; line-height:1.6;
+}
+.static-message-content { font-style:normal; font-weight:normal; }
