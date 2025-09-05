@@ -4,6 +4,10 @@
   --bright-cyan:#39CFD1; --bright-cyan-2:#1DA4A6;
   --error-red:#ff6b6b; --success-green:#4ade80;
   --light-purple:#A48DCD; --light-purple-30: rgba(164,141,205,.3);
+
+  /* 版心寬度：讓容器盡量寬，但保留一點左右邊距 */
+  --container-max: 1800px;   /* 你要更寬可改 1920px */
+  --container-side: 2vw;     /* 左右留白（相對視窗） */
 }
 
 /* ---------- Base ---------- */
@@ -11,7 +15,7 @@ html, body { height: 100%; }
 body{
   font-family:'Noto Sans TC',sans-serif;
   color:#fff; min-height:100vh; overflow:hidden; margin:0; padding:0;
-  display:flex; flex-direction:column; font-size:16px;
+  display:flex; flex-direction:column;
 
   /* 柔和橘→灰綠→藍綠漸層 */
   background: linear-gradient(100deg,#F07A3A 0%,#B7B49E 52%,#39CFD1 100%);
@@ -26,21 +30,27 @@ body{
 /* 讓前景元素浮在背景畫布之上 */
 .main-page-header, .waiting-section { position:relative; z-index:10; }
 
-/* ---------- Header ---------- */
+/* ---------- Header（跟卡片同寬） ---------- */
 .main-page-header{
-  padding:22px 16px 10px;
+  padding:22px calc(max(var(--container-side), 16px)) 10px;
   text-align:center;
+  max-width: min(calc(100vw - 2*max(var(--container-side), 16px)), var(--container-max));
+  margin: 0 auto;
 }
 .main-page-title{
   margin:0;
-  font-size:2.25rem; line-height:2.75rem; font-weight:800;
+  /* 自適應放大 */
+  font-size: clamp(1.6rem, 1.8vw + 1rem, 3rem);
+  line-height:1.1;
+  font-weight:800;
   text-shadow:0 4px 8px rgba(0,0,0,.25);
 }
 
 /* ---------- Waiting Section（大色塊卡片） ---------- */
 .waiting-section{
-  max-width:1200px;
-  width:calc(100% - 32px);
+  /* 改成幾乎吃滿整個視窗寬度 */
+  width: 100%;
+  max-width: min(calc(100vw - 2*max(var(--container-side), 16px)), var(--container-max));
   margin:14px auto 28px;
   border-radius:16px;
   background: linear-gradient(135deg, rgba(38,55,62,.82) 0%, rgba(53,97,98,.82) 100%);
@@ -66,7 +76,9 @@ body{
 }
 .section-title{
   margin:0; text-align:center; color:#fff;
-  font-size:1.5rem; font-weight:800; letter-spacing:.02em;
+  /* 自適應放大 */
+  font-size: clamp(1.1rem, 1.2vw + 0.8rem, 2rem);
+  font-weight:800; letter-spacing:.02em;
   text-shadow:0 2px 6px rgba(0,0,0,.2);
 }
 
@@ -89,9 +101,9 @@ body{
 /* ---------- Grid inside each slide ---------- */
 .page-container-in-slide{
   display:grid;
-  /* 固定 6 欄 */
+  /* 固定 6 欄（每欄平均分攤寬度） */
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap:12px;
+  gap: clamp(10px, 1vw, 18px);
   width:100%; height:100%;
   overflow-x:hidden;
 }
@@ -109,20 +121,18 @@ body{
 .column-title{
   background: linear-gradient(90deg, rgba(240,122,58,.85) 0%, rgba(57,207,209,.85) 100%);
   color:#fff; font-weight:700; text-align:center;
-  padding:.8rem 1rem;
-  font-size: clamp(1rem, 1.1vw + .6rem, 1.25rem);
+  padding: clamp(.6rem, .6vw + .4rem, 1rem) 1rem;
+  /* 標題字體自適應放大 */
+  font-size: clamp(1.05rem, 0.9vw + .7rem, 1.6rem);
   border-bottom:2px solid rgba(255,255,255,.35);
   text-shadow:0 1px 6px rgba(0,0,0,.2);
-}
-.column-title::after{
-  content:''; position:absolute; inset:0 0 auto 0; height:1px;
 }
 
 /* 內容區可滾動 */
 .column-content{
   flex:1 1 auto; overflow-y:auto;
   scrollbar-width:none; -ms-overflow-style:none;
-  padding:6px 6px 10px;
+  padding: clamp(6px, .6vw, 12px) clamp(6px, .6vw, 12px) clamp(10px, .8vw, 16px);
 }
 .column-content::-webkit-scrollbar{ display:none; }
 
@@ -135,12 +145,17 @@ body{
   position: sticky; top:0; z-index:10;
   border-bottom:2px solid rgba(255,255,255,.35);
   font-weight:700; text-align:center;
-  padding:.7rem; font-size:1.05rem; color:#fff;
-  white-space:nowrap;
+  padding: clamp(.55rem, .5vw + .35rem, .9rem);
+  /* 表頭字體自適應放大 */
+  font-size: clamp(1rem, 0.6vw + 0.7rem, 1.35rem);
+  color:#fff; white-space:nowrap;
 }
 .column-content td{
-  padding:.7rem; text-align:center; vertical-align:middle;
-  color:var(--near-white); font-size:1.02rem;
+  padding: clamp(.55rem, .5vw + .3rem, .9rem);
+  text-align:center; vertical-align:middle;
+  color:var(--near-white);
+  /* 內容字體自適應放大 */
+  font-size: clamp(0.95rem, 0.55vw + 0.65rem, 1.25rem);
   text-shadow:0 1px 2px rgba(0,0,0,.35);
 }
 .column-content tr:nth-child(odd){  background-color: rgba(31,49,54,0.55); }
@@ -152,6 +167,6 @@ body{
 .error-message, .no-data, .static-message-content{
   text-align:center; color:var(--near-white);
   margin-top:20px; padding:18px;
-  font-style:italic; font-size:1rem; line-height:1.6;
+  font-style:italic; font-size: clamp(.9rem, .5vw + .6rem, 1.15rem); line-height:1.6;
 }
 .static-message-content{ font-style:normal; font-weight:normal; }
