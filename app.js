@@ -14,7 +14,6 @@ async function fetchData() {
 
 /* =========================
  * 1. 背景：光點＋線條（Canvas）
- *    - 參考 A HTML 的風格（柔和金色光點 & 細線）
  * ========================= */
 function initBgCanvas() {
   const canvas = document.getElementById('bgCanvas');
@@ -24,7 +23,6 @@ function initBgCanvas() {
   const drawDecor = (w, h) => {
     ctx.clearRect(0, 0, w, h);
 
-    // 色票（與 A HTML 一致）
     const lineColor = 'rgba(246,197,74,0.28)';
     const dotCore   = 'rgba(246,197,74,0.90)';
     const dotHalo   = 'rgba(246,197,74,0.20)';
@@ -274,7 +272,7 @@ function startCarousel() {
  * 5. Init
  * ========================= */
 document.addEventListener('DOMContentLoaded', () => {
-  initBgCanvas();        // ← 新的背景（取代原本的 DOM 線條）
+  initBgCanvas();
   loadData();
   setInterval(loadData, 60000);  // 每 60 秒重新抓一次資料
 });
