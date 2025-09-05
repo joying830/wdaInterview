@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>面試等候區</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- 背景畫布：漸層＋光點＋線條 -->
+  <!-- 背景畫布：漸層＋光點＋線條（由 app.js 初始化） -->
   <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
-  <!-- 2. 標題 -->
+  <!-- 頁面主標題（置頂） -->
   <header class="main-page-header">
     <h1 class="main-page-title">面試等候區</h1>
   </header>
 
-  <!-- 3. 輪播容器（JS 會動態插入 slides） -->
-  <div id="slideshowMasterContainer"
-       class="slideshow-master-container"
-       role="region"
-       aria-roledescription="carousel"
-       aria-label="數位永續 薪在嘉義-面試進度">
-  </div>
+  <!-- 等候區卡片容器（大色塊） -->
+  <section class="waiting-section" aria-labelledby="waiting-title">
+    <!-- 卡片抬頭漸層條（與預約面試頁一致的風格） -->
+    <div class="section-header">
+      <h2 id="waiting-title" class="section-title">即時名單與進度</h2>
+    </div>
+
+    <!-- 輪播容器：JS 會動態插入 slides -->
+    <div id="slideshowMasterContainer"
+         class="slideshow-master-container"
+         role="region"
+         aria-roledescription="carousel"
+         aria-label="數位永續 薪在嘉義-面試進度">
+    </div>
+  </section>
 
   <script src="app.js" defer></script>
 </body>
