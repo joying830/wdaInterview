@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>面試等候區</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- 背景畫布：漸層＋光點＋線條 -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <!-- 2. 標題 -->
+  <header class="main-page-header">
+    <h1 class="main-page-title">面試等候區</h1>
+  </header>
+
+  <!-- 3. 輪播容器（JS 會動態插入 slides） -->
+  <div id="slideshowMasterContainer"
+       class="slideshow-master-container"
+       role="region"
+       aria-roledescription="carousel"
+       aria-label="數位永續 薪在嘉義-面試進度">
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
