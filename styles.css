@@ -32,7 +32,7 @@ body{
 
 /* ---------- Header（與卡片同寬） ---------- */
 .main-page-header{
-  padding:14px calc(max(var(--container-side), 16px)) 6px;
+  padding:10px calc(max(var(--container-side), 16px)) 4px;  /* ↓壓小高度 */
   text-align:center;
   max-width: min(calc(100vw - 2*max(var(--container-side), 16px)), var(--container-max));
   margin: 0 auto;
@@ -49,7 +49,7 @@ body{
 .waiting-section{
   width: 100%;
   max-width: min(calc(100vw - 2*max(var(--container-side), 16px)), var(--container-max));
-  margin: 8px auto 10px;         /* 縮小上下留白 */
+  margin: 6px auto 6px;         /* ↓縮小上下留白 */
   border-radius:16px;
   background: linear-gradient(135deg, rgba(38,55,62,.82) 0%, rgba(53,97,98,.82) 100%);
   box-shadow:0 12px 28px rgba(0,0,0,.18);
@@ -58,8 +58,8 @@ body{
   border:1px solid rgba(255,255,255,.22);
   overflow:hidden;
 
-  /* 更貼近視窗底部：優先 svh（避免瀏覽器工具列影響） */
-  height: clamp(520px, 92svh, 100svh);
+  /* ↑更貼近視窗底部 */
+  height: clamp(520px, 95svh, 100svh);
   display:flex;
   flex-direction:column;
 }
@@ -67,16 +67,16 @@ body{
 /* 回退：若不支援 svh，使用 vh */
 @supports not (height: 100svh) {
   .waiting-section{
-    height: clamp(520px, 92vh, 100vh);
+    height: clamp(520px, 95vh, 100vh);
   }
 }
 
-/* 卡片抬頭漸層條 */
+/* 卡片抬頭漸層條（上方縫隙修正：減少下內距） */
 .section-header{
   background: linear-gradient(90deg, rgba(240,122,58,.85) 0%, rgba(57,207,209,.85) 100%);
   border-bottom:2px solid rgba(255,255,255,.35);
   box-shadow:0 4px 16px rgba(0,0,0,.18);
-  padding:12px 18px;             /* 壓縮高度 */
+  padding:10px 18px 8px;   /* 原 12px 18px，↓ 下內距 */
   flex:0 0 auto;
 }
 .section-title{
@@ -89,9 +89,10 @@ body{
 /* ---------- Slideshow container & slides ---------- */
 .slideshow-master-container{
   width:100%; box-sizing:border-box;
-  padding:12px 14px 8px;         /* 縮小 padding，提升內容高度 */
+  /* 上方縫隙的主因：移除上 padding！ */
+  padding:0 14px 6px;      /* 原 12px 14px 8px → top 改 0 */
   position:relative; overflow:hidden;
-  flex:1 1 auto;                 /* 填滿剩餘空間 */
+  flex:1 1 auto;           /* 填滿剩餘空間 */
   height: 100%;
 }
 .column-group-slide{
