@@ -175,3 +175,22 @@ body{
   font-style:italic; font-size: clamp(.9rem, .5vw + .6rem, 1.15rem); line-height:1.6;
 }
 .static-message-content{ font-style:normal; font-weight:normal; }
+
+/* === 緊貼欄標題與表頭，移除中間所有縫隙 === */
+.column-title{
+  border-bottom: 0 !important;      /* 取消下邊線避免形成一道縫 */
+  padding-bottom: clamp(.4rem, .45vw + .2rem, .7rem);
+}
+
+.column-content{
+  padding-top: 0 !important;         /* 移除內容區上內距 */
+}
+
+/* 確保表格本身不會推開距離 */
+.column-content table{
+  margin-top: 0 !important;
+  border-spacing: 0 !important;
+}
+
+/* 若瀏覽器留下任何微小空隙（字體行高造成），再保險壓掉 */
+.column-title{ border-bottom: 1px solid rgba(255,255,255,.28) !important; }
