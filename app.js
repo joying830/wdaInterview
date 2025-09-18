@@ -1,5 +1,5 @@
 // ---------- CONFIGURE THIS URL to your Apps Script JSON endpoint ----------
-const API_URL = 'https://script.google.com/macros/s/AKfycbwLysHgtHsozkodXaC6lj_0l9kdevkmnaO_1MXI69Dh9yB4vE6bddxPe4y_gZyrFPqQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxnsNdx7QT6p-_G4ge53bALjJnhfijUtR35m3aDApLKqyXBwxfzGqVKZE5rGyxHqDJ8/exec';
 
 // 狀態變數
 let isFirstLoad = true;
